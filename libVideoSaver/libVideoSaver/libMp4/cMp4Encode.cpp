@@ -1,13 +1,7 @@
 #include "stdafx.h"
 #include "string.h"
 #include "cMp4Encode.h"
-
-#ifdef _WIN64
-#pragma comment(lib, "./lib_x64/libmp4v2.lib")
-#else _WIN32
-#pragma comment(lib, "./lib/libmp4v2.lib")
-#endif
-
+#include "utilityTool/utf8.h"
 
 CMp4Encode::CMp4Encode(void):
     m_bfindSps(false),
@@ -37,9 +31,11 @@ int CMp4Encode::FileCreate(const char *pFileName, int width, int height, int fra
     {
         return -1;
     }
+    char chVideoFile[256] = {};
+    gb_to_utf8(pFileName, chVideoFile, sizeof(chVideoFile));
 
     // create mp4 file
-    hMp4File = MP4Create(pFileName);
+    hMp4File = MP4Create(chVideoFile);
     if (hMp4File == MP4_INVALID_FILE_HANDLE)
     {
         printf("ERROR:Open file fialed.\n");

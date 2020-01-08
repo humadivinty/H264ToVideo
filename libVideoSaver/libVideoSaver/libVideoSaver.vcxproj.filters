@@ -19,6 +19,12 @@
     <Filter Include="libMP4">
       <UniqueIdentifier>{b944af97-7226-46ed-bb06-99b19336770a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utf8Convert">
+      <UniqueIdentifier>{0ad147ef-a8bf-45ee-9ca0-9c4f5f6202e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utilityTool">
+      <UniqueIdentifier>{b59462b3-5583-44ad-9b87-9e1a7b5d25d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -48,6 +54,12 @@
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="utilityTool\utf8.h">
+      <Filter>utf8Convert</Filter>
+    </ClInclude>
+    <ClInclude Include="utilityTool\ToolFunction.h">
+      <Filter>utilityTool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -70,6 +82,12 @@
     </ClCompile>
     <ClCompile Include="libMp4\cMp4Encode.cpp">
       <Filter>libMP4</Filter>
+    </ClCompile>
+    <ClCompile Include="utilityTool\utf8.c">
+      <Filter>utf8Convert</Filter>
+    </ClCompile>
+    <ClCompile Include="utilityTool\ToolFunction.cpp">
+      <Filter>utilityTool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

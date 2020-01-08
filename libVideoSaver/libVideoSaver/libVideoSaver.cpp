@@ -6,6 +6,7 @@
 #include "videosaver.h"
 #include "stdio.h"
 #include "libvideo_typedef.h"
+#include "utilityTool/ToolFunction.h"
 
 
 #define SAFE_DELETE_OBJ(obj) \
@@ -47,8 +48,13 @@ LIBVIDEOSAVER_API int DELSPEC Video_CreateVideoFile(void *pHandle, const char *c
         printf("%s::parameter is invalid.\n", __FUNCTION__);
         return -1;
     }
+
+    std::string strFile = Tool_ReplaceStringInStd(chFileName, "\\\\", "\\");
+    strFile = Tool_ReplaceStringInStd(strFile.c_str(), "//", "/");
+    printf("%s:: final file name = %s\n", __FUNCTION__, strFile.c_str());
+
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
-    int iRet = pVideoSaver->CreateVideoFile(chFileName,
+    int iRet = pVideoSaver->CreateVideoFile(strFile.c_str(),
         iVideoWidth,
         iVideoHeight,
         iFrameRate);

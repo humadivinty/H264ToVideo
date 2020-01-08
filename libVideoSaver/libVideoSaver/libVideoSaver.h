@@ -4,10 +4,16 @@
 // 任何其他项目上不应定义此符号。这样，源文件中包含此文件的任何其他项目都会将
 // LIBVIDEOSAVER_API 函数视为是从 DLL 导入的，而此 DLL 则将用此宏定义的
 // 符号视为是被导出的。
-#ifdef LIBVIDEOSAVER_EXPORTS
-#define LIBVIDEOSAVER_API __declspec(dllexport)
+#if defined( _WIN32 ) || defined( __MINGW32__ )
+#   if defined( LIBVIDEOSAVER_EXPORTS )
+#       define LIBVIDEOSAVER_API __declspec(dllexport)
+#   elif defined( LIBVIDEOSAVER_IMPORT ) || !defined( LIBVIDEOSAVER_USE_STATIC_LIB )
+#       define LIBVIDEOSAVER_API __declspec(dllimport)
+#   else
+#       define LIBVIDEOSAVER_API
+#   endif
 #else
-#define LIBVIDEOSAVER_API __declspec(dllimport)
+#   define LIBVIDEOSAVER_API __attribute__((visibility("default")))
 #endif
 
 #define DELSPEC 
