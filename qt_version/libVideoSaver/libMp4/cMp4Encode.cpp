@@ -1,6 +1,9 @@
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "string.h"
 #include "cMp4Encode.h"
+#ifdef WIN32
+#pragma comment(lib, "Win32/Debug/libmp4v2.lib")
+#endif
 #include "utilityTool/utf8.h"
 
 CMp4Encode::CMp4Encode(void):

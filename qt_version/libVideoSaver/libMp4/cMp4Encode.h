@@ -2,16 +2,7 @@
 #define CMP4ENCODE_H
 
 //#include "./inc/mp4v2/mp4v2.h"
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 #include "mp4v2\mp4v2.h"
-#ifdef __cplusplus
-}
-#endif
-
 
 // NALUµ¥Ôª
 typedef struct _MP4ENC_NaluUnit
