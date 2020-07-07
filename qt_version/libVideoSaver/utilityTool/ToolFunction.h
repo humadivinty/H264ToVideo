@@ -2,6 +2,8 @@
 #define TOOL_FUNCTION_H
 #include <iostream>
 
+#define OUT_LOG(fmt,...) Tool_WriteFormatLog("%s:: " fmt, __FUNCTION__, ##__VA_ARGS__);
+
 //************************************
 // Method:        Tool_ReplaceStringInStd
 // Describe:        用于替换指定字符串，若被替换的字符为空，则删除该指定字符串
@@ -14,5 +16,7 @@
 // Parameter:    std::string strNewChar
 //************************************
 std::string Tool_ReplaceStringInStd(std::string strOrigin, std::string strToReplace, std::string strNewChar);
+
+void Tool_WriteFormatLog(const char* szfmt, ...);
 
 #endif

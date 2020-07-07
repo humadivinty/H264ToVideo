@@ -1,4 +1,7 @@
 #include "ToolFunction.h"
+#include <stdarg.h>
+#include<memory.h>
+#include<stdio.h>
 
 std::string Tool_ReplaceStringInStd(std::string strOrigin, std::string strToReplace, std::string strNewChar)
 {
@@ -31,4 +34,19 @@ std::string Tool_ReplaceStringInStd(std::string strOrigin, std::string strToRepl
         }
     }
     return   strFinal;
+}
+
+void Tool_WriteFormatLog(const char *szfmt, ...)
+{
+#ifdef OUTPUT_LOG
+    char g_szPbString[10240] = { 0 };
+    memset(g_szPbString, 0, sizeof(g_szPbString));
+
+    va_list arg_ptr;
+    va_start(arg_ptr, szfmt);
+    vsnprintf(g_szPbString, sizeof(g_szPbString), szfmt, arg_ptr);
+    va_end(arg_ptr);
+
+    printf("%s\n", g_szPbString);
+#endif
 }

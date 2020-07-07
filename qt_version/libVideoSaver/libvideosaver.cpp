@@ -14,11 +14,11 @@ if (NULL != obj)                                  \
 
 LIBVIDEOSHARED_EXPORT void* DELSPEC Video_CreateProcessHandle(int VideoType)
 {
-    printf("%s::  VideoType = %d", __FUNCTION__, VideoType);
+    OUT_LOG("  VideoType = %d",  VideoType);
     if(videoType_avi  != VideoType
             && videoType_mp4 != VideoType )
     {
-        printf("%s:: input type is invalid, must be 0%d or %d.\n", __FUNCTION__, videoType_avi, videoType_mp4);
+        OUT_LOG(" input type is invalid, must be 0%d or %d.\n",  videoType_avi, videoType_mp4);
         return 0;
     }
     CVideoSaver* pVideoSaver = new CVideoSaver(VideoType);
@@ -27,8 +27,7 @@ LIBVIDEOSHARED_EXPORT void* DELSPEC Video_CreateProcessHandle(int VideoType)
 
 LIBVIDEOSHARED_EXPORT int DELSPEC Video_CreateVideoFile(void *pHandle, const char *chFileName, int iVideoWidth, int iVideoHeight, int iFrameRate)
 {
-     printf("%s::  pHandle = %p, chFileName = %p, iVideoWidth = %d, iVideoHeight = %d, iFrameRate = %d",
-            __FUNCTION__,
+     OUT_LOG("  pHandle = %p, chFileName = %p, iVideoWidth = %d, iVideoHeight = %d, iFrameRate = %d",
             pHandle,
             chFileName,
             iVideoWidth,
@@ -41,13 +40,13 @@ LIBVIDEOSHARED_EXPORT int DELSPEC Video_CreateVideoFile(void *pHandle, const cha
         || iVideoHeight <= 0
         || iFrameRate <= 0)
     {
-        printf("%s::parameter is invalid.\n", __FUNCTION__);
+        OUT_LOG("parameter is invalid.\n", __FUNCTION__);
         return -1;
     }
 
     std::string strFile = Tool_ReplaceStringInStd(chFileName, "\\\\", "\\");
     strFile = Tool_ReplaceStringInStd(strFile.c_str(), "//", "/");
-    printf("%s:: final file name = %s\n", __FUNCTION__, strFile.c_str());
+    OUT_LOG(" final file name = %s\n",  strFile.c_str());
 
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     int iRet = pVideoSaver->CreateVideoFile(strFile.c_str(),
@@ -55,14 +54,13 @@ LIBVIDEOSHARED_EXPORT int DELSPEC Video_CreateVideoFile(void *pHandle, const cha
                                  iVideoHeight,
                                  iFrameRate);
 
-     printf("%s::return %d.\n", __FUNCTION__, iRet);
+     OUT_LOG("return %d.\n",  iRet);
     return iRet;
 }
 
 LIBVIDEOSHARED_EXPORT int DELSPEC Video_WriteH264Frame(void *pHandle, int iFrameType, unsigned char *pbFrameData, int iFrameSize)
 {
-    printf("%s::  pHandle = %p, iFrameType = %d, pbFrameData = %p, iFrameSize = %d",
-           __FUNCTION__,
+    OUT_LOG("  pHandle = %p, iFrameType = %d, pbFrameData = %p, iFrameSize = %d",
            pHandle,
            iFrameType,
            pbFrameData,
@@ -74,44 +72,44 @@ LIBVIDEOSHARED_EXPORT int DELSPEC Video_WriteH264Frame(void *pHandle, int iFrame
             || iFrameSize <= 0
             )
     {
-        printf("%s::parameter is invalid.\n", __FUNCTION__);
+        OUT_LOG("parameter is invalid.\n");
         return -1;
     }
 
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     int iRet = pVideoSaver->WriteH264Frame(iFrameType, pbFrameData, iFrameSize );
 
-     printf("%s::return %d.\n", __FUNCTION__, iRet);
+     OUT_LOG("return %d.\n",  iRet);
     return iRet;
 }
 
 LIBVIDEOSHARED_EXPORT int DELSPEC Video_CloseVideoFile(void *pHandle)
 {
-    printf("%s::  pHandle = %p", __FUNCTION__, pHandle);
+    OUT_LOG("  pHandle = %p",  pHandle);
     if(NULL == pHandle)
     {
-        printf("%s::parameter is invalid.\n", __FUNCTION__);
+        OUT_LOG("parameter is invalid.\n");
         return -1;
     }
 
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     int iRet = pVideoSaver->CloseVideoFile();
 
-     printf("%s::return %d.\n", __FUNCTION__, iRet);
+     OUT_LOG("return %d.\n",  iRet);
     return iRet;
 }
 
 int Video_CloseProcessHandle(void *pHandle)
 {
-    printf("%s::  pHandle = %p", __FUNCTION__, pHandle);
+    OUT_LOG("  pHandle = %p",  pHandle);
     if(NULL == pHandle)
     {
-        printf("%s::parameter is invalid.\n", __FUNCTION__);
+        OUT_LOG("parameter is invalid.\n");
         return -1;
     }
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     SAFE_DELETE_OBJ(pVideoSaver);
     int iRet = 0;
-    printf("%s::return %d.\n", __FUNCTION__, iRet);
+    OUT_LOG("return %d.\n",  iRet);
    return iRet;
 }
