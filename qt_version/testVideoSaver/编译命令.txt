@@ -1,0 +1,1 @@
+g++  testTool_videoSaver.cpp -o saveH264 -L./ -lVideoSaver
