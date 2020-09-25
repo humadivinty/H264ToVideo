@@ -1,20 +1,21 @@
 #include "stdafx.h"
 #include "videosaver.h"
 #include"libvideo_typedef.h"
+#include "utilityTool/ToolFunction.h"
 #include<stdio.h>
 #include<string.h>
 
 CVideoSaver::CVideoSaver(int iVideoType):
    m_iVideoType(iVideoType)
 {
-    printf("%s:: iVideoType = %d\n",  __FUNCTION__, iVideoType);
+    PRINT_INFO(" iVideoType = %d\n",   iVideoType);
 }
 
 CVideoSaver::~CVideoSaver()
 {
-    printf("%s:: begin\n",  __FUNCTION__);
+    PRINT_INFO(" begin\n");
     CloseVideoFile();
-    printf("%s:: finish\n",  __FUNCTION__);
+    PRINT_INFO(" finish\n");
 }
 
 int CVideoSaver::CreateVideoFile(const char *chFileName, int iVideoWidth, int iVideoHeight, int iFrameRate)
@@ -27,16 +28,14 @@ int CVideoSaver::CreateVideoFile(const char *chFileName, int iVideoWidth, int iV
             || iVideoHeight<= 0
             || iFrameRate<=0 )
     {
-        printf("%s:: parameter is invalid.  chFileName = %p,  iVideoWidth = %d,  iVideoHeight = %d,  iFrameRate = %d\n",
-               __FUNCTION__,
+        PRINT_INFO(" parameter is invalid.  chFileName = %p,  iVideoWidth = %d,  iVideoHeight = %d,  iFrameRate = %d\n",               
                chFileName,
                iVideoWidth,
                iVideoHeight,
                iFrameRate );
         return -2;
     }
-    printf("%s::  chFileName = %p,  iVideoWidth = %d,  iVideoHeight = %d,  iFrameRate = %d\n",
-           __FUNCTION__,
+    PRINT_INFO("  chFileName = %p,  iVideoWidth = %d,  iVideoHeight = %d,  iFrameRate = %d\n",           
            chFileName,
            iVideoWidth,
            iVideoHeight,
@@ -57,7 +56,7 @@ int CVideoSaver::CreateVideoFile(const char *chFileName, int iVideoWidth, int iV
         m_264Mp4Lib.FileClose();
         iRet = m_264Mp4Lib.FileCreate(chFileName, iVideoWidth, iVideoHeight, iFrameRate);
     }
-    printf("%s:: return = %d\n",  __FUNCTION__,iRet);
+    PRINT_INFO(" return = %d\n",  iRet);
     return iRet;
 }
 
@@ -70,16 +69,14 @@ int CVideoSaver::WriteH264Frame( int iFrameType, unsigned char *pbFrameData, int
             || iFrameSize <= 0
             )
     {
-        printf("%s:: parameter is invalid, iFrameType = %d,  pbFrameData = %p,  iFrameSize = %d\n",
-               __FUNCTION__,
+        PRINT_INFO(" parameter is invalid, iFrameType = %d,  pbFrameData = %p,  iFrameSize = %d\n",               
                iFrameType,
                pbFrameData,
                iFrameSize );
         return -2;
     }
     int iRet = -1;
-    printf("%s::  iFrameType = %d,  pbFrameData = %p,  iFrameSize = %d\n",
-           __FUNCTION__,
+    PRINT_INFO("  iFrameType = %d,  pbFrameData = %p,  iFrameSize = %d\n",           
            iFrameType,
            pbFrameData,
            iFrameSize );
@@ -94,7 +91,7 @@ int CVideoSaver::WriteH264Frame( int iFrameType, unsigned char *pbFrameData, int
         else
         {
             iRet = -3;
-            printf("%s:: m_264AviLib.IsNULL() iRet = %d \n",  __FUNCTION__, iRet);
+            PRINT_INFO(" m_264AviLib.IsNULL() iRet = %d \n",   iRet);
         }
     }
     else if(videoType_mp4 == m_iVideoType )
@@ -117,7 +114,7 @@ int CVideoSaver::WriteH264Frame( int iFrameType, unsigned char *pbFrameData, int
         }
         iRet = m_264Mp4Lib.FileWrite(iType, pbFrameData, iFrameSize);
     }
-    printf("%s:: return = %d\n",  __FUNCTION__, iRet);
+    PRINT_INFO(" return = %d\n",   iRet);
     return iRet;
 }
 
