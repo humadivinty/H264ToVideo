@@ -18,11 +18,11 @@ if (NULL != obj)                                  \
 
 LIBVIDEOSAVER_API void* DELSPEC Video_CreateProcessHandle(int VideoType)
 {
-    printf("%s::  VideoType = %d", __FUNCTION__, VideoType);
+    PRINT_INFO(" VideoType = %d", VideoType);
     if (videoType_avi != VideoType
         && videoType_mp4 != VideoType)
     {
-        printf("%s:: input type is invalid, must be 0%d or %d.\n", __FUNCTION__, videoType_avi, videoType_mp4);
+        PRINT_INFO("input type is invalid, must be 0%d or %d.\n", videoType_avi, videoType_mp4);
         return 0;
     }
     CVideoSaver* pVideoSaver = new CVideoSaver(VideoType);
@@ -31,8 +31,7 @@ LIBVIDEOSAVER_API void* DELSPEC Video_CreateProcessHandle(int VideoType)
 
 LIBVIDEOSAVER_API int DELSPEC Video_CreateVideoFile(void *pHandle, const char *chFileName, int iVideoWidth, int iVideoHeight, int iFrameRate)
 {
-    printf("%s::  pHandle = %p, chFileName = %p, iVideoWidth = %d, iVideoHeight = %d, iFrameRate = %d",
-        __FUNCTION__,
+    PRINT_INFO(" pHandle = %p, chFileName = %p, iVideoWidth = %d, iVideoHeight = %d, iFrameRate = %d",        
         pHandle,
         chFileName,
         iVideoWidth,
@@ -45,13 +44,13 @@ LIBVIDEOSAVER_API int DELSPEC Video_CreateVideoFile(void *pHandle, const char *c
         || iVideoHeight <= 0
         || iFrameRate <= 0)
     {
-        printf("%s::parameter is invalid.\n", __FUNCTION__);
+        PRINT_INFO("parameter is invalid.\n");
         return -1;
     }
 
     std::string strFile = Tool_ReplaceStringInStd(chFileName, "\\\\", "\\");
     strFile = Tool_ReplaceStringInStd(strFile.c_str(), "//", "/");
-    printf("%s:: final file name = %s\n", __FUNCTION__, strFile.c_str());
+    PRINT_INFO("final file name = %s\n", strFile.c_str());
 
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     int iRet = pVideoSaver->CreateVideoFile(strFile.c_str(),
@@ -59,14 +58,13 @@ LIBVIDEOSAVER_API int DELSPEC Video_CreateVideoFile(void *pHandle, const char *c
         iVideoHeight,
         iFrameRate);
 
-    printf("%s::return %d.\n", __FUNCTION__, iRet);
+    PRINT_INFO("return %d.\n", iRet);
     return iRet;
 }
 
 LIBVIDEOSAVER_API int DELSPEC Video_WriteH264Frame(void *pHandle, int iFrameType, unsigned char *pbFrameData, int iFrameSize)
 {
-    printf("%s::  pHandle = %p, iFrameType = %d, pbFrameData = %p, iFrameSize = %d",
-        __FUNCTION__,
+    PRINT_INFO(" pHandle = %p, iFrameType = %d, pbFrameData = %p, iFrameSize = %d",        
         pHandle,
         iFrameType,
         pbFrameData,
@@ -78,44 +76,44 @@ LIBVIDEOSAVER_API int DELSPEC Video_WriteH264Frame(void *pHandle, int iFrameType
         || iFrameSize <= 0
         )
     {
-        printf("%s::parameter is invalid.\n", __FUNCTION__);
+        PRINT_INFO("parameter is invalid.\n");
         return -1;
     }
 
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     int iRet = pVideoSaver->WriteH264Frame(iFrameType, pbFrameData, iFrameSize);
 
-    printf("%s::return %d.\n", __FUNCTION__, iRet);
+    PRINT_INFO("return %d.\n", iRet);
     return iRet;
 }
 
 LIBVIDEOSAVER_API int DELSPEC Video_CloseVideoFile(void *pHandle)
 {
-    printf("%s::  pHandle = %p", __FUNCTION__, pHandle);
+    PRINT_INFO(" pHandle = %p", pHandle);
     if (NULL == pHandle)
     {
-        printf("%s::parameter is invalid.\n", __FUNCTION__);
+        PRINT_INFO("parameter is invalid.\n");
         return -1;
     }
 
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     int iRet = pVideoSaver->CloseVideoFile();
 
-    printf("%s::return %d.\n", __FUNCTION__, iRet);
+    PRINT_INFO("return %d.\n", iRet);
     return iRet;
 }
 
 LIBVIDEOSAVER_API int DELSPEC Video_CloseProcessHandle(void *pHandle)
 {
-    printf("%s::  pHandle = %p", __FUNCTION__, pHandle);
+    PRINT_INFO(" pHandle = %p", pHandle);
     if (NULL == pHandle)
     {
-        printf("%s::parameter is invalid.\n", __FUNCTION__);
+        PRINT_INFO("parameter is invalid.\n");
         return -1;
     }
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     SAFE_DELETE_OBJ(pVideoSaver);
     int iRet = 0;
-    printf("%s::return %d.\n", __FUNCTION__, iRet);
+    PRINT_INFO("return %d.\n", iRet);
     return iRet;
 }

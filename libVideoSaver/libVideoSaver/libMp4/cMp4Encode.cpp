@@ -2,6 +2,7 @@
 #include "string.h"
 #include "cMp4Encode.h"
 #include "utilityTool/utf8.h"
+#include "utilityTool/ToolFunction.h"
 
 CMp4Encode::CMp4Encode(void):
     m_bfindSps(false),
@@ -38,7 +39,7 @@ int CMp4Encode::FileCreate(const char *pFileName, int width, int height, int fra
 	hMp4File = MP4Create(chVideoFile);
     if (hMp4File == MP4_INVALID_FILE_HANDLE)
     {
-        printf("ERROR:Open file fialed.\n");
+        PRINT_INFO("ERROR:Open file fialed.\n");
         return -1;
     }
 
@@ -100,10 +101,10 @@ int CMp4Encode::WriteVideoTrack(unsigned char *pframeBuf,int frameLen)
 {
     int pos = 0, len = 0;
     MP4ENC_NaluUnit nalu;
-    printf("\n\nframeLen:%d\n\n", frameLen);
+    PRINT_INFO("\n\nframeLen:%d\n\n", frameLen);
     while (len = ReadOneNaluFromBuf(pframeBuf, frameLen, pos, nalu))
     {
-        printf("\n\nnalu.frameType:0x%02x nalu.frameLen:%d len:%d\n\n", nalu.frameType, nalu.frameLen, len);
+        PRINT_INFO("\n\nnalu.frameType:0x%02x nalu.frameLen:%d len:%d\n\n", nalu.frameType, nalu.frameLen, len);
         if(nalu.frameType == 0x07) // sps
         {
             if (m_bfindSps)
@@ -123,7 +124,7 @@ int CMp4Encode::WriteVideoTrack(unsigned char *pframeBuf,int frameLen)
 
             if (m_videoId == MP4_INVALID_TRACK_ID)
             {
-                printf("add video track failed.\n");
+                PRINT_INFO("add video track failed.\n");
                 return 0;
             }
             MP4SetVideoProfileLevel(hMp4File, 0x7F); //  Simple Profile @ Level 3

@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "ToolFunction.h"
+#include <memory.h>
+#include <stdarg.h>
 
 std::string Tool_ReplaceStringInStd(std::string strOrigin, std::string strToReplace, std::string strNewChar)
 {
@@ -32,4 +34,19 @@ std::string Tool_ReplaceStringInStd(std::string strOrigin, std::string strToRepl
         }
     }
     return   strFinal;
+}
+
+void Tool_PrintfInfo(const char* szfmt, ...)
+{
+#ifdef OUTPUT_INFO
+	char m_chLogBuf[1024] = {0};
+	memset(m_chLogBuf, 0, sizeof(m_chLogBuf));
+
+	va_list arg_ptr;
+	va_start(arg_ptr, szfmt);
+	vsnprintf(m_chLogBuf, sizeof(m_chLogBuf), szfmt, arg_ptr);
+	va_end(arg_ptr);
+
+	printf("%s\n", m_chLogBuf);
+#endif
 }
