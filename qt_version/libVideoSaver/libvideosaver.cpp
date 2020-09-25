@@ -6,11 +6,11 @@
 
 
 #define SAFE_DELETE_OBJ(obj) \
-if (NULL != obj)                                  \
+    if (NULL != obj)                                  \
 {                                           \
     delete obj;                        \
     obj = NULL;                      \
-}
+    }
 
 LIBVIDEOSHARED_EXPORT void* DELSPEC Video_CreateProcessHandle(int VideoType)
 {
@@ -27,7 +27,7 @@ LIBVIDEOSHARED_EXPORT void* DELSPEC Video_CreateProcessHandle(int VideoType)
 
 LIBVIDEOSHARED_EXPORT int DELSPEC Video_CreateVideoFile(void *pHandle, const char *chFileName, int iVideoWidth, int iVideoHeight, int iFrameRate)
 {
-     OUT_LOG("  pHandle = %p, chFileName = %p, iVideoWidth = %d, iVideoHeight = %d, iFrameRate = %d",
+    OUT_LOG("  pHandle = %p, chFileName = %p, iVideoWidth = %d, iVideoHeight = %d, iFrameRate = %d",
             pHandle,
             chFileName,
             iVideoWidth,
@@ -35,10 +35,10 @@ LIBVIDEOSHARED_EXPORT int DELSPEC Video_CreateVideoFile(void *pHandle, const cha
             iFrameRate);
 
     if (NULL == pHandle
-        || NULL == chFileName
-        || iVideoWidth <= 0
-        || iVideoHeight <= 0
-        || iFrameRate <= 0)
+            || NULL == chFileName
+            || iVideoWidth <= 0
+            || iVideoHeight <= 0
+            || iFrameRate <= 0)
     {
         OUT_LOG("parameter is invalid.\n", __FUNCTION__);
         return -1;
@@ -50,21 +50,21 @@ LIBVIDEOSHARED_EXPORT int DELSPEC Video_CreateVideoFile(void *pHandle, const cha
 
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     int iRet = pVideoSaver->CreateVideoFile(strFile.c_str(),
-                                 iVideoWidth,
-                                 iVideoHeight,
-                                 iFrameRate);
+                                            iVideoWidth,
+                                            iVideoHeight,
+                                            iFrameRate);
 
-     OUT_LOG("return %d.\n",  iRet);
+    OUT_LOG("return %d.\n",  iRet);
     return iRet;
 }
 
 LIBVIDEOSHARED_EXPORT int DELSPEC Video_WriteH264Frame(void *pHandle, int iFrameType, unsigned char *pbFrameData, int iFrameSize)
 {
     OUT_LOG("  pHandle = %p, iFrameType = %d, pbFrameData = %p, iFrameSize = %d",
-           pHandle,
-           iFrameType,
-           pbFrameData,
-           iFrameSize);
+            pHandle,
+            iFrameType,
+            pbFrameData,
+            iFrameSize);
 
     if(NULL== pHandle
             ||  (frameType_avi_I_frame != iFrameType  && frameType_avi_P_frame != iFrameType && videoType_avi != iFrameType && videoType_mp4 != iFrameType )
@@ -79,7 +79,7 @@ LIBVIDEOSHARED_EXPORT int DELSPEC Video_WriteH264Frame(void *pHandle, int iFrame
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     int iRet = pVideoSaver->WriteH264Frame(iFrameType, pbFrameData, iFrameSize );
 
-     OUT_LOG("return %d.\n",  iRet);
+    OUT_LOG("return %d.\n",  iRet);
     return iRet;
 }
 
@@ -95,7 +95,7 @@ LIBVIDEOSHARED_EXPORT int DELSPEC Video_CloseVideoFile(void *pHandle)
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;
     int iRet = pVideoSaver->CloseVideoFile();
 
-     OUT_LOG("return %d.\n",  iRet);
+    OUT_LOG("return %d.\n",  iRet);
     return iRet;
 }
 
@@ -111,5 +111,5 @@ int Video_CloseProcessHandle(void *pHandle)
     SAFE_DELETE_OBJ(pVideoSaver);
     int iRet = 0;
     OUT_LOG("return %d.\n",  iRet);
-   return iRet;
+    return iRet;
 }

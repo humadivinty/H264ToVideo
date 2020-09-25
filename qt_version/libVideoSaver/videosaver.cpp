@@ -5,16 +5,16 @@
 #include"utilityTool/ToolFunction.h"t"
 
 CVideoSaver::CVideoSaver(int iVideoType):
-   m_iVideoType(iVideoType)
+    m_iVideoType(iVideoType)
 {
-     OUT_LOG(" iVideoType = %d  " , iVideoType);
+    OUT_LOG(" iVideoType = %d  " , iVideoType);
 }
 
 CVideoSaver::~CVideoSaver()
 {
-     OUT_LOG(" begin  " );
+    OUT_LOG(" begin  " );
     CloseVideoFile();
-     OUT_LOG(" finish  " );
+    OUT_LOG(" finish  " );
 }
 
 int CVideoSaver::CreateVideoFile(const char *chFileName, int iVideoWidth, int iVideoHeight, int iFrameRate)
@@ -27,18 +27,18 @@ int CVideoSaver::CreateVideoFile(const char *chFileName, int iVideoWidth, int iV
             || iVideoHeight<= 0
             || iFrameRate<=0 )
     {
-         OUT_LOG(" parameter is invalid.  chFileName = %p,  iVideoWidth = %d,  iVideoHeight = %d,  iFrameRate = %d  ",
-               chFileName,
-               iVideoWidth,
-               iVideoHeight,
-               iFrameRate );
+        OUT_LOG(" parameter is invalid.  chFileName = %p,  iVideoWidth = %d,  iVideoHeight = %d,  iFrameRate = %d  ",
+                chFileName,
+                iVideoWidth,
+                iVideoHeight,
+                iFrameRate );
         return -2;
     }
-     OUT_LOG("  chFileName = %s,  iVideoWidth = %d,  iVideoHeight = %d,  iFrameRate = %d  ",
-           chFileName,
-           iVideoWidth,
-           iVideoHeight,
-           iFrameRate );
+    OUT_LOG("  chFileName = %s,  iVideoWidth = %d,  iVideoHeight = %d,  iFrameRate = %d  ",
+            chFileName,
+            iVideoWidth,
+            iVideoHeight,
+            iFrameRate );
 
     if(videoType_avi == m_iVideoType )
     {
@@ -55,7 +55,7 @@ int CVideoSaver::CreateVideoFile(const char *chFileName, int iVideoWidth, int iV
         m_264Mp4Lib.FileClose();
         iRet = m_264Mp4Lib.FileCreate(chFileName, iVideoWidth, iVideoHeight, iFrameRate);
     }
-     OUT_LOG(" return = %d  " ,iRet);
+    OUT_LOG(" return = %d  " ,iRet);
     return iRet;
 }
 
@@ -68,17 +68,17 @@ int CVideoSaver::WriteH264Frame( int iFrameType, unsigned char *pbFrameData, int
             || iFrameSize <= 0
             )
     {
-         OUT_LOG(" parameter is invalid, iFrameType = %d,  pbFrameData = %p,  iFrameSize = %d  ",
-               iFrameType,
-               pbFrameData,
-               iFrameSize );
+        OUT_LOG(" parameter is invalid, iFrameType = %d,  pbFrameData = %p,  iFrameSize = %d  ",
+                iFrameType,
+                pbFrameData,
+                iFrameSize );
         return -2;
     }
     int iRet = -1;
-     OUT_LOG("  iFrameType = %d,  pbFrameData = %p,  iFrameSize = %d  ",
-           iFrameType,
-           pbFrameData,
-           iFrameSize );
+    OUT_LOG("  iFrameType = %d,  pbFrameData = %p,  iFrameSize = %d  ",
+            iFrameType,
+            pbFrameData,
+            iFrameSize );
 
     if(videoType_avi == m_iVideoType )
     {
@@ -90,7 +90,7 @@ int CVideoSaver::WriteH264Frame( int iFrameType, unsigned char *pbFrameData, int
         else
         {
             iRet = -3;
-             OUT_LOG(" m_264AviLib.IsNULL() iRet = %d   " , iRet);
+            OUT_LOG(" m_264AviLib.IsNULL() iRet = %d   " , iRet);
         }
     }
     else if(videoType_mp4 == m_iVideoType )
@@ -113,7 +113,7 @@ int CVideoSaver::WriteH264Frame( int iFrameType, unsigned char *pbFrameData, int
         }
         iRet = m_264Mp4Lib.FileWrite(iType, pbFrameData, iFrameSize);
     }
-     OUT_LOG(" return = %d  " , iRet);
+    OUT_LOG(" return = %d  " , iRet);
     return iRet;
 }
 
@@ -130,7 +130,7 @@ int CVideoSaver::CloseVideoFile()
         iRet = 0;
     }
     else if(videoType_mp4 == m_iVideoType )
-    {        
+    {
         iRet =  m_264Mp4Lib.FileClose();
     }
     OUT_LOG("finish " );
