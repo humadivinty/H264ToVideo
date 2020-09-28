@@ -36,7 +36,7 @@ std::string Tool_ReplaceStringInStd(std::string strOrigin, std::string strToRepl
     return   strFinal;
 }
 
-void Tool_WriteFormatLog(const char *szfmt, ...)
+void Tool_WriteFormatLog_video(const char *szfmt, ...)
 {
 #ifdef OUTPUT_LOG
     char g_szPbString[10240] = { 0 };

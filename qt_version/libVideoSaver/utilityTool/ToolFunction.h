@@ -2,7 +2,7 @@
 #define TOOL_FUNCTION_H
 #include <iostream>
 
-#define OUT_LOG(fmt,...) Tool_WriteFormatLog("%s:: " fmt, __FUNCTION__, ##__VA_ARGS__);
+#define OUT_LOG(fmt,...) Tool_WriteFormatLog_video("%s:: " fmt, __FUNCTION__, ##__VA_ARGS__);
 
 //************************************
 // Method:        Tool_ReplaceStringInStd
@@ -17,6 +17,6 @@
 //************************************
 std::string Tool_ReplaceStringInStd(std::string strOrigin, std::string strToReplace, std::string strNewChar);
 
-void Tool_WriteFormatLog(const char* szfmt, ...);
+void Tool_WriteFormatLog_video(const char* szfmt, ...);
 
 #endif

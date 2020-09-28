@@ -52,11 +52,11 @@ W := -w
 #编译规则
 .c.o:
 	@echo "Compile $@"
-	$(Q)$(CC) $(CFLAG) -o $@ -c $< $(INC) $(W)
+	$(Q)$(CC) $(CFLAG) -fPIC -o $@ -c $< $(INC) $(W)
 
 .cpp.o:
 	@echo "Compile $@"
-	$(Q)$(CXX) $(CXXFLAG) -o $@ -c $< $(INC) $(W)
+	$(Q)$(CXX) $(CXXFLAG) -fPIC -o $@ -c $< $(INC) $(W) 
 	
 	
 $(PROGRAM):$(OBJ)
