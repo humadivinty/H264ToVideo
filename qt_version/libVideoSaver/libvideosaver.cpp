@@ -44,8 +44,8 @@ LIBVIDEOSHARED_EXPORT int DELSPEC Video_CreateVideoFile(void *pHandle, const cha
         return -1;
     }
 
-    std::string strFile = Tool_ReplaceStringInStd(chFileName, "\\\\", "\\");
-    strFile = Tool_ReplaceStringInStd(strFile.c_str(), "//", "/");
+    std::string strFile = Tool_ReplaceStringInStd_video(chFileName, "\\\\", "\\");
+    strFile = Tool_ReplaceStringInStd_video(strFile.c_str(), "//", "/");
     OUT_LOG(" final file name = %s\n",  strFile.c_str());
 
     CVideoSaver* pVideoSaver = (CVideoSaver*)pHandle;

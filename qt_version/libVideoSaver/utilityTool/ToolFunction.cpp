@@ -3,7 +3,7 @@
 #include<memory.h>
 #include<stdio.h>
 
-std::string Tool_ReplaceStringInStd(std::string strOrigin, std::string strToReplace, std::string strNewChar)
+std::string Tool_ReplaceStringInStd_video(std::string strOrigin, std::string strToReplace, std::string strNewChar)
 {
     std::string strFinal = strOrigin;
     if (strFinal.empty())

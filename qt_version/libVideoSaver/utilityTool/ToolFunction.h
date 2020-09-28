@@ -15,7 +15,7 @@
 // Parameter:    std::string strToReplace
 // Parameter:    std::string strNewChar
 //************************************
-std::string Tool_ReplaceStringInStd(std::string strOrigin, std::string strToReplace, std::string strNewChar);
+std::string Tool_ReplaceStringInStd_video(std::string strOrigin, std::string strToReplace, std::string strNewChar);
 
 void Tool_WriteFormatLog_video(const char* szfmt, ...);
 
