@@ -34,6 +34,8 @@ private:
 	int m_StreamIndex;
 	int m_iGetFirstIFrame;
 
+    int m_iTimeBase;
+
 	static bool m_bInitFFmpeg;
 };
 

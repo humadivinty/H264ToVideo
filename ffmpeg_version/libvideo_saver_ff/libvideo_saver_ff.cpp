@@ -7,7 +7,7 @@ extern "C"
 {
 #endif
 
-LIBVIDEO_SAVER_API void * DELSPEC Video_CreateProcessHandle()
+LIBVIDEO_SAVER_API void * DELSPEC_VIDEO Video_CreateProcessHandle()
 {
     H264ToMp4* pProcesser = new H264ToMp4();
     if(!pProcesser)
@@ -18,7 +18,7 @@ LIBVIDEO_SAVER_API void * DELSPEC Video_CreateProcessHandle()
     return pProcesser;
 }
 
-LIBVIDEO_SAVER_API int DELSPEC Video_CreateVideoFile(void *pHandle, const char *chFileName, int iFrameRate)
+LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_CreateVideoFile(void *pHandle, const char *chFileName, int iFrameRate)
 {
     OUT_LOG("pHandle = %p, chFileName = %s, iFrameRate = %d.", pHandle , chFileName, iFrameRate);
     H264ToMp4* pProcesser = static_cast<H264ToMp4*>(pHandle);
@@ -32,7 +32,7 @@ LIBVIDEO_SAVER_API int DELSPEC Video_CreateVideoFile(void *pHandle, const char *
     return iRet;
 }
 
-LIBVIDEO_SAVER_API int DELSPEC Video_WriteH264Frame(void *pHandle, int iFrameType, unsigned char *pbFrameData, int iFrameSize)
+LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_WriteH264Frame(void *pHandle, int iFrameType, unsigned char *pbFrameData, int iFrameSize)
 {
     OUT_LOG("pHandle = %p, iFrameType = %d, pbFrameData = %p, iFrameSize = %d.", pHandle , iFrameType, pbFrameData, iFrameSize);
     H264ToMp4* pProcesser = static_cast<H264ToMp4*>(pHandle);
@@ -47,7 +47,7 @@ LIBVIDEO_SAVER_API int DELSPEC Video_WriteH264Frame(void *pHandle, int iFrameTyp
     return iRet;
 }
 
-LIBVIDEO_SAVER_API int DELSPEC Video_CloseVideoFile(void *pHandle)
+LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_CloseVideoFile(void *pHandle)
 {
     OUT_LOG("pHandle = %p");
     H264ToMp4* pProcesser = static_cast<H264ToMp4*>(pHandle);
@@ -61,7 +61,7 @@ LIBVIDEO_SAVER_API int DELSPEC Video_CloseVideoFile(void *pHandle)
     return iRet;
 }
 
-LIBVIDEO_SAVER_API int DELSPEC Video_CloseProcessHandle(void *pHandle)
+LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_CloseProcessHandle(void *pHandle)
 {
     OUT_LOG("pHandle = %p");
     H264ToMp4* pProcesser = static_cast<H264ToMp4*>(pHandle);

@@ -36,6 +36,8 @@ int H264ToMp4::create_videoFile(const char* fileName)
 	AVCodec* video_codec = NULL;
 	AVStream* pAvStream_video = NULL;
 
+    m_iTimeBase = 0;
+
 	avformat_alloc_output_context2(&m_fctx, NULL, NULL, fileName);
 	if (NULL == m_fctx)
 	{
@@ -111,11 +113,11 @@ void H264ToMp4::add_frame(unsigned char* data, size_t dataLength)
 		}
 	}
 
-	int ptsInc = 0;
+    //int ptsInc = 0;
 	int STREAM_FRAME_RATE = 25;
 
-	pkt.pts = (ptsInc++) * (90000 / STREAM_FRAME_RATE);
-	pkt.pts = av_rescale_q((ptsInc++) * 2, pAvStream_video->codec->time_base, pAvStream_video->time_base);
+    pkt.pts = (m_iTimeBase++) * (90000 / STREAM_FRAME_RATE);
+    //pkt.pts = av_rescale_q((m_iTimeBase++) * 2, pAvStream_video->codec->time_base, pAvStream_video->time_base);
 	pkt.dts = av_rescale_q_rnd(pkt.dts, pAvStream_video->time_base, pAvStream_video->time_base, (AVRounding)(AV_ROUND_NEAR_INF | AV_ROUND_PASS_MINMAX));
 	pkt.duration = av_rescale_q(pkt.duration, pAvStream_video->time_base, pAvStream_video->time_base);
 	pkt.pos = -1;
