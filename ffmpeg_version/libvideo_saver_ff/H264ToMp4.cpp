@@ -14,7 +14,9 @@ H264ToMp4::H264ToMp4()
 
 	if (!m_bInitFFmpeg)
 	{
-		//av_register_all();
+#ifndef FFMPEG_VERSION_4
+        av_register_all();
+#endif
 		m_bInitFFmpeg = true;
 	}
 }
