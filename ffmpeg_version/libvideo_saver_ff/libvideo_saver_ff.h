@@ -21,7 +21,7 @@
 
 #else
 
-#define DELSPEC
+#define DELSPEC_VIDEO
 #define LIBVIDEO_SAVER_API
 
 #endif
