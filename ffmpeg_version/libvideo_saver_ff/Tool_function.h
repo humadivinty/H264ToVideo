@@ -3,11 +3,24 @@
 
 namespace video_saver_ffmpeg
 {
+typedef struct
+{
+    int year;
+    int month;
+    int day;
+    int hour;
+    int minute;
+    int second;
+    int millisecond;
+}DateTimeWithMilsec;
 
-#define OUT_LOG(fmt,...) fprintf(stderr, "%s:: " fmt "\n", __FUNCTION__, ##__VA_ARGS__);
+void Tool_getDateTimeWithMillisecond(DateTimeWithMilsec& timeStruct);
+
+void tool_writeFormatLog(const char* szfmt, ...);
 
 void tool_ReadFileAll(char* filename, char** data, long* len);
 
+#define OUT_LOG(fmt,...) tool_writeFormatLog("%s:: " fmt , __FUNCTION__, ##__VA_ARGS__);
 }
 
 

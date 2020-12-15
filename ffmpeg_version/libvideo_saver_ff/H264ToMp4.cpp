@@ -1,5 +1,6 @@
 #include "H264ToMp4.h"
 #include "Tool_function.h"
+using namespace video_saver_ffmpeg;
 
 bool H264ToMp4::m_bInitFFmpeg = false;
 
@@ -15,6 +16,7 @@ H264ToMp4::H264ToMp4()
 	if (!m_bInitFFmpeg)
 	{
 #ifndef FFMPEG_VERSION_4
+        OUT_LOG("av_register_all");
         av_register_all();
 #endif
 		m_bInitFFmpeg = true;
@@ -50,6 +52,10 @@ int H264ToMp4::create_videoFile(const char* fileName)
 		OUT_LOG("avformat_alloc_output_context2 failed.");
 		return -1;
 	}
+    else
+    {
+        OUT_LOG("avformat_alloc_output_context2 success.");
+    }
 	pAvoutputFmt = m_fctx->oformat;
 	if (pAvoutputFmt->video_codec != AV_CODEC_ID_NONE)
 	{
@@ -57,28 +63,31 @@ int H264ToMp4::create_videoFile(const char* fileName)
 	}
 	if (pAvStream_video)
 	{
-		avcodec_open2(pAvStream_video->codec, video_codec, NULL);
+        ret = avcodec_open2(pAvStream_video->codec, video_codec, NULL);
+        OUT_LOG("add stream success, avcodec_open2(%d) = %d", pAvStream_video->codec, ret);
 	}
 	else
 	{
 		OUT_LOG("create avStream failed.");
 	}
-	//av_dump_format(m_fctx, 0, fileName, 1);
+    av_dump_format(m_fctx, 0, fileName, 1);
 
 	if (!(pAvoutputFmt->flags & AVFMT_NOFILE))
 	{
+        OUT_LOG("avio_open begin.");
 		ret = avio_open(&m_fctx->pb, fileName, AVIO_FLAG_WRITE);
 		if (ret < 0)
 		{
 			OUT_LOG("avio_open failed.");
 			return -1;
 		}
+        OUT_LOG("avio_open = %d.", ret);
 	}
-
+    OUT_LOG("avio_open begin.");
 	ret = avformat_write_header(m_fctx, NULL);
 	if (ret < 0)
 	{
-		OUT_LOG("avformat_write_header failed.");
+        OUT_LOG("avformat_write_header failed, ret = %d.", ret);
 		return -1;
 	}
 
@@ -130,6 +139,7 @@ void H264ToMp4::add_frame(unsigned char* data, size_t dataLength)
 
 int H264ToMp4::finish_save_video()
 {
+    m_iTimeBase = 0;
 	m_iGetFirstIFrame = 0;
 	m_StreamIndex = -1;
 
@@ -153,6 +163,7 @@ int H264ToMp4::finish_save_video()
 
 AVStream* H264ToMp4::AddStream(AVFormatContext* formatCtx, AVCodec** codec, enum AVCodecID codec_id)
 {
+    OUT_LOG("formatCtx = %p, codec_id = %d", formatCtx, codec_id);
 	AVCodecContext* pAvCodecContex = NULL;
 	AVStream* pAvStream = NULL;
 
@@ -177,16 +188,18 @@ AVStream* H264ToMp4::AddStream(AVFormatContext* formatCtx, AVCodec** codec, enum
 	switch ((*codec)->type)
 	{
 	case AVMEDIA_TYPE_AUDIO:
+        OUT_LOG("case AVMEDIA_TYPE_AUDIO.");
 		pAvCodecContex->sample_fmt = (*codec)->sample_fmts ? (*codec)->sample_fmts[0] : AV_SAMPLE_FMT_FLTP;
 		pAvCodecContex->bit_rate = 64000;
 		pAvCodecContex->sample_rate = 44100;
 		pAvCodecContex->channels = 2;
 		break;
 	case AVMEDIA_TYPE_VIDEO:
+        OUT_LOG("case AVMEDIA_TYPE_VIDEO.");
 		pAvCodecContex->codec_id = AV_CODEC_ID_H264;
 		pAvCodecContex->bit_rate = 0;
-		pAvCodecContex->width = 1080;
-		pAvCodecContex->height = 720;
+        pAvCodecContex->width = 1920;
+        pAvCodecContex->height = 1080;
 		pAvCodecContex->time_base.den = 50;
 		pAvCodecContex->time_base.num = 1;
 		pAvCodecContex->gop_size = 1;
@@ -201,6 +214,7 @@ AVStream* H264ToMp4::AddStream(AVFormatContext* formatCtx, AVCodec** codec, enum
 		}
 		break;
 	default:
+        OUT_LOG("case unknow type.");
 		break;
 	}
 

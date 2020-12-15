@@ -2,6 +2,8 @@
 #include "H264ToMp4.h"
 #include "Tool_function.h"
 
+using namespace video_saver_ffmpeg;
+
 #ifdef __cplusplus
 extern "C"
 {
