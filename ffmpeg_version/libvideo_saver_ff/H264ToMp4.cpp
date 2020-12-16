@@ -127,8 +127,8 @@ void H264ToMp4::add_frame(unsigned char* data, size_t dataLength)
     //int ptsInc = 0;
 	int STREAM_FRAME_RATE = 25;
 
-    pkt.pts = (m_iTimeBase++) * (90000 / STREAM_FRAME_RATE);
-    //pkt.pts = av_rescale_q((m_iTimeBase++) * 2, pAvStream_video->codec->time_base, pAvStream_video->time_base);
+    //pkt.pts = (m_iTimeBase++) * (90000 / STREAM_FRAME_RATE);
+    pkt.pts = av_rescale_q((m_iTimeBase++) * 2, pAvStream_video->codec->time_base, pAvStream_video->time_base);
 	pkt.dts = av_rescale_q_rnd(pkt.dts, pAvStream_video->time_base, pAvStream_video->time_base, (AVRounding)(AV_ROUND_NEAR_INF | AV_ROUND_PASS_MINMAX));
 	pkt.duration = av_rescale_q(pkt.duration, pAvStream_video->time_base, pAvStream_video->time_base);
 	pkt.pos = -1;
@@ -200,7 +200,7 @@ AVStream* H264ToMp4::AddStream(AVFormatContext* formatCtx, AVCodec** codec, enum
 		pAvCodecContex->bit_rate = 0;
         pAvCodecContex->width = 1920;
         pAvCodecContex->height = 1080;
-		pAvCodecContex->time_base.den = 50;
+        pAvCodecContex->time_base.den = 25;
 		pAvCodecContex->time_base.num = 1;
 		pAvCodecContex->gop_size = 1;
 		pAvCodecContex->pix_fmt = AV_PIX_FMT_YUV420P;

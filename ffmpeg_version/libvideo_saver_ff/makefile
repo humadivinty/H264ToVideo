@@ -53,7 +53,7 @@ all:$(PROGRAM)
 static:$(StaticLIb)
 
 INC := -I.\
-	-I./libFFmpeg/include
+	-I./libFFmpeg-4.2.4/include
 
 LDFLAG += -L$(LIBPATH)\
 	-lpthread \
