@@ -13,6 +13,10 @@ H264ToMp4::H264ToMp4()
 	m_StreamIndex = -1;
 	m_iGetFirstIFrame = 0;
 
+    m_iVideWidth = 1920;
+    m_iVideoHeight = 1080;
+    m_iFrameRate = 25;
+
 	if (!m_bInitFFmpeg)
 	{
 #ifndef FFMPEG_VERSION_4
@@ -28,7 +32,7 @@ H264ToMp4::~H264ToMp4()
 
 }
 
-int H264ToMp4::create_videoFile(const char* fileName)
+int H264ToMp4::create_videoFile(const char* fileName, int width, int height, int frameRate)
 {
 	if (NULL == fileName)
 	{
@@ -41,6 +45,9 @@ int H264ToMp4::create_videoFile(const char* fileName)
 	AVStream* pAvStream_video = NULL;
 
     m_iTimeBase = 0;
+    m_iVideWidth = width;
+    m_iVideoHeight = height;
+    m_iFrameRate = frameRate;
 
 	avformat_alloc_output_context2(&m_fctx, NULL, NULL, fileName);
 	if (NULL == m_fctx)
@@ -198,9 +205,9 @@ AVStream* H264ToMp4::AddStream(AVFormatContext* formatCtx, AVCodec** codec, enum
         OUT_LOG("case AVMEDIA_TYPE_VIDEO.");
 		pAvCodecContex->codec_id = AV_CODEC_ID_H264;
 		pAvCodecContex->bit_rate = 0;
-        pAvCodecContex->width = 1920;
-        pAvCodecContex->height = 1080;
-        pAvCodecContex->time_base.den = 25;
+        pAvCodecContex->width = m_iVideWidth;
+        pAvCodecContex->height = m_iVideoHeight;
+        pAvCodecContex->time_base.den = m_iFrameRate;
 		pAvCodecContex->time_base.num = 1;
 		pAvCodecContex->gop_size = 1;
 		pAvCodecContex->pix_fmt = AV_PIX_FMT_YUV420P;

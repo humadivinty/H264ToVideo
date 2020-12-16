@@ -14,7 +14,7 @@ public:
 	H264ToMp4();
 	~H264ToMp4();
 
-	int create_videoFile(const char* fileName);
+    int create_videoFile(const char* fileName, int width, int height, int frameRate);
 	void add_frame(unsigned char* data, size_t dataLength);
 	int finish_save_video();
 
@@ -35,6 +35,10 @@ private:
 	int m_iGetFirstIFrame;
 
     int m_iTimeBase;
+
+    int m_iVideWidth;
+    int m_iVideoHeight;
+    int m_iFrameRate;
 
 	static bool m_bInitFFmpeg;
 };

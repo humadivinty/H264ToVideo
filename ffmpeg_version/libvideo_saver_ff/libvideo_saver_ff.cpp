@@ -20,16 +20,21 @@ LIBVIDEO_SAVER_API void * DELSPEC_VIDEO Video_CreateProcessHandle()
     return pProcesser;
 }
 
-LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_CreateVideoFile(void *pHandle, const char *chFileName, int iFrameRate)
+LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_CreateVideoFile(void *pHandle, const char *chFileName, int iVideoWidth, int iVideoHeight, int iFrameRate)
 {
-    OUT_LOG("pHandle = %p, chFileName = %s, iFrameRate = %d.", pHandle , chFileName, iFrameRate);
+    OUT_LOG("pHandle = %p, chFileName = %s, iVideoWidth = %d,  iVideoHeight = %d, iFrameRate = %d.",
+            pHandle ,
+            chFileName,
+            iVideoWidth,
+            iVideoHeight,
+            iFrameRate);
     H264ToMp4* pProcesser = static_cast<H264ToMp4*>(pHandle);
     if(!pProcesser)
     {
         OUT_LOG("alloc video processor failed.");
         return -1;
     }
-    int iRet = pProcesser->create_videoFile(chFileName);
+    int iRet = pProcesser->create_videoFile(chFileName,iVideoWidth,  iVideoHeight,  iFrameRate);
     OUT_LOG("finish, return %d", iRet);
     return iRet;
 }

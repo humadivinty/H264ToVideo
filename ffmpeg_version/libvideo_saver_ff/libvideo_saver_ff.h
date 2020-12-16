@@ -32,7 +32,7 @@ extern "C"
 #endif
 
 LIBVIDEO_SAVER_API void* DELSPEC_VIDEO Video_CreateProcessHandle();
-LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_CreateVideoFile(void* pHandle, const char* chFileName, int iFrameRate);
+LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_CreateVideoFile(void* pHandle, const char* chFileName, int iVideoWidth, int iVideoHeight, int iFrameRate);
 LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_WriteH264Frame(void* pHandle, int iFrameType, unsigned char* pbFrameData, int iFrameSize);
 LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_CloseVideoFile(void* pHandle);
 LIBVIDEO_SAVER_API int DELSPEC_VIDEO Video_CloseProcessHandle(void* pHandle);
