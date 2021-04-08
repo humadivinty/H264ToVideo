@@ -44,9 +44,9 @@ X86:OUT_PUT_PATH+= ./bin_x86
 X86:$(REAL_NAME)
 #X86:$(StaticLIb)
 
-X64:LIBPATH += ./libFFmpeg/lib_x64/static
+X64:LIBPATH += /home/huma/winShare/ffmpeg-4.2.4/build/lib
 X64:OUT_PUT_PATH+= ./bin_x64
-X64:$(PROGRAM)
+X64:$(REAL_NAME)
 #X64:$(StaticLIb)
 
 all:$(PROGRAM)

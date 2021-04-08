@@ -26,8 +26,11 @@ void tool_ReadFile(const char* filename, char** data, long* len)
 int main(int argc, char *argv[])
 {
     cout << "Hello World!" << endl;
-    if(argc < 3)
-        cout<< "please put the input video file path."<<endl;
+    if (argc < 3)
+    {
+        cout << "please put the input video file path." << endl;
+        return 0;
+    }
 
     std::string strInputFileName(argv[1]);
     std::string strOutputFileName(argv[2]);
@@ -46,7 +49,7 @@ int main(int argc, char *argv[])
     {
         cout<<"Video_CreateProcessHandle failed."<<endl;
     }
-    int iRet = Video_CreateVideoFile(processHandle, strOutputFileName.c_str(), 25);
+    int iRet = Video_CreateVideoFile(processHandle, strOutputFileName.c_str(),1920,1080, 25);
     cout<< "Video_CreateVideoFile " << strOutputFileName<< " =" << iRet<<endl;
     printf("pf Video_CreateVideoFile = %d \n", iRet);
 
